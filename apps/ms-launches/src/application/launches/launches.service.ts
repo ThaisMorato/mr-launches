@@ -11,8 +11,13 @@ export default class LaunchesService {
     AND YOU MUST ENSURE THAT THE LAUNCH CODE DO NOT BE RETURNED BY THE API AS IT IS, APPLY ANY ENCRYPTATION METHOD BEFORE RETURN IT.
     YOU MAY GOOGLE IT IF NEEDED
    */
+    orderByDate(launches: LaunchesDTO[]): void {
+        launches.sort((a, b) => new Date(a.date) > new Date(b.date) ? -1 : 1)
+    }
+
     async getByName(name: string): Promise<LaunchesDTO[]> {
         const launches = await this.lauchesRepository.findByName(name)
+        this.orderByDate(launches)
         return launches
     }
 

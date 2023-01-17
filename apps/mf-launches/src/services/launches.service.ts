@@ -1,4 +1,4 @@
-import { launches } from '../models/LaunchesModel';
+import axios from 'axios';
 
 export type ILaunchProperties = {
   id: number;
@@ -15,8 +15,9 @@ export type IRocketProperties = {
 };
 
 class LaunchesService {
-  getLaunches = (): ILaunchProperties[] => {
+  getLaunches = async (): Promise<ILaunchProperties[]> => {
     //TODO #TASK-FRONTEND-01 choose an http api to make a call to a endpoint http://localhost:3004/launches
+    const launches = (await axios.get('http://localhost:3004/launches')).data;
     return launches;
   };
 }
